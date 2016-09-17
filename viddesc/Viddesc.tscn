@@ -181,7 +181,6 @@ caret/caret_blink_speed = 0.65
 
 [node name="vbox_desc" type="VBoxContainer" parent="Container"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -426,7 +425,7 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 3
 margin/left = 500.0
-margin/top = 20.0
+margin/top = 10.0
 margin/right = 960.0
 margin/bottom = 440.0
 custom_constants/separation = 7
@@ -507,7 +506,7 @@ size_flags/vertical = 3
 margin/left = 0.0
 margin/top = 140.0
 margin/right = 460.0
-margin/bottom = 420.0
+margin/bottom = 430.0
 custom_fonts/font = ExtResource( 3 )
 syntax_highlighting = false
 show_line_numbers = false
