@@ -4,3 +4,6 @@ Generate video descriptions.
 
 Uses Godot as the UI toolkit, no dependency hell when building.
 (I guess?)
+
+
+TODO: Complete description generator.
