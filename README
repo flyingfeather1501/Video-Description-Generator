@@ -1,0 +1,6 @@
+Video Description Generator
+---------------------------
+Generate video descriptions.
+
+Uses Godot as the UI toolkit, no dependency hell when building.
+(I guess?)
