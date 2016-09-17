@@ -19,6 +19,7 @@ func _ready():
 
 func _fixed_process(delta):
 	var extra_raw = get_node("/root/Control/Container/vbox_title/field_extra").get_text()
+	var feat_raw = get_node("/root/Control/Container/vbox_title/field_feat").get_text()
 	if pv_tag == true:
 		PV = "【PV】"
 	else:
@@ -34,10 +35,14 @@ func _fixed_process(delta):
 	else:
 		EXTRA = "【"+extra_raw+"】"
 	
-	NAME = get_node("/root/Control/Container/vbox_title/field_name").get_text()
-	FEAT = get_node("/root/Control/Container/vbox_title/hbox_feat/Control/field_feat").get_text()
+	if feat_raw == "":
+		FEAT = ""
+	else:
+		FEAT = " ft."+feat_raw
 	
-	self.set_text(PV+NAME+" ft."+FEAT+UTAU+EXTRA)
+	NAME = get_node("/root/Control/Container/vbox_title/field_name").get_text()
+	
+	self.set_text(PV+NAME+FEAT+UTAU+EXTRA)
 
 func _on_checkbox_PV_toggled( check_state ):
 	pv_tag = check_state
