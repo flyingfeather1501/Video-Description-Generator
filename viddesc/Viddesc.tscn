@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://NotoCJKtcRegular_24.tres" type="DynamicFont" id=1]
 [ext_resource path="res://NotoCJKtcRegular.tres" type="DynamicFont" id=2]
 [ext_resource path="res://NotoCJKtcRegular_12.tres" type="DynamicFont" id=3]
-[ext_resource path="res://final_title.gd" type="Script" id=4]
+[ext_resource path="res://toggle_autorefresh.gd" type="Script" id=4]
+[ext_resource path="res://final_title.gd" type="Script" id=5]
+[ext_resource path="res://final_desc.gd" type="Script" id=6]
 
 [sub_resource type="Theme" id=1]
 
@@ -17,8 +19,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 980.0
-margin/bottom = 470.0
+margin/right = 740.0
+margin/bottom = 600.0
 
 [node name="Container" type="Container" parent="."]
 
@@ -41,21 +43,35 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 20.0
-margin/top = 10.0
+margin/top = 20.0
 margin/right = 240.0
-margin/bottom = 260.0
+margin/bottom = 275.0
 custom_constants/separation = 10
 alignment = 0
 
-[node name="label_title" type="Label" parent="Container/vbox_title"]
+[node name="hbox_title" type="HBoxContainer" parent="Container/vbox_title"]
 
-focus/ignore_mouse = true
-focus/stop_mouse = true
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
 size_flags/horizontal = 2
-size_flags/vertical = 0
+size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 220.0
+margin/bottom = 36.0
+alignment = 0
+
+[node name="label_title" type="Label" parent="Container/vbox_title/hbox_title"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+size_flags/stretch_ratio = 2.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 106.0
 margin/bottom = 36.0
 custom_fonts/font = ExtResource( 1 )
 text = "Title"
@@ -63,8 +79,43 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="field_(" type="LineEdit" parent="Container/vbox_title/hbox_title"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+margin/left = 110.0
+margin/top = 2.0
+margin/right = 163.0
+margin/bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Left"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_)" type="LineEdit" parent="Container/vbox_title/hbox_title"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+margin/left = 167.0
+margin/top = 2.0
+margin/right = 220.0
+margin/bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Right"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
 [node name="hbox" type="HBoxContainer" parent="Container/vbox_title"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -89,7 +140,7 @@ margin/bottom = 31.0
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
-text = "【PV】"
+text = "PV"
 flat = false
 align = 0
 
@@ -107,7 +158,7 @@ custom_fonts/font = ExtResource( 2 )
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
-text = "【UTAU】"
+text = "UTAU"
 flat = false
 align = 0
 
@@ -128,16 +179,48 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="field_feat" type="LineEdit" parent="Container/vbox_title"]
+[node name="hbox2" type="HBoxContainer" parent="Container/vbox_title"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
-focus/stop_mouse = true
+focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 129.0
 margin/right = 220.0
 margin/bottom = 161.0
+alignment = 0
+
+[node name="field_pre" type="LineEdit" parent="Container/vbox_title/hbox2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 46.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+text = "ft."
+placeholder/text = "prepend"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_feat" type="LineEdit" parent="Container/vbox_title/hbox2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 4.0
+margin/left = 50.0
+margin/top = 0.0
+margin/right = 220.0
+margin/bottom = 32.0
 custom_fonts/font = ExtResource( 2 )
 placeholder/text = "feat."
 placeholder/alpha = 0.6
@@ -181,14 +264,15 @@ caret/caret_blink_speed = 0.65
 
 [node name="vbox_desc" type="VBoxContainer" parent="Container"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 260.0
-margin/top = 190.0
-margin/right = 480.0
-margin/bottom = 440.0
+margin/left = 20.0
+margin/top = 280.0
+margin/right = 240.0
+margin/bottom = 580.0
 custom_constants/separation = 10
 alignment = 0
 
@@ -208,7 +292,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="TextEdit" type="TextEdit" parent="Container/vbox_desc"]
+[node name="edit_desc" type="TextEdit" parent="Container/vbox_desc"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -217,7 +301,7 @@ size_flags/vertical = 3
 margin/left = 0.0
 margin/top = 46.0
 margin/right = 220.0
-margin/bottom = 250.0
+margin/bottom = 300.0
 custom_fonts/font = ExtResource( 3 )
 syntax_highlighting = false
 show_line_numbers = false
@@ -228,33 +312,16 @@ caret/caret_blink_speed = 0.65
 
 [node name="vbox_credits" type="VBoxContainer" parent="Container"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 260.0
-margin/top = 10.0
-margin/right = 480.0
-margin/bottom = 172.0
+margin/top = 20.0
+margin/right = 720.0
+margin/bottom = 270.0
 custom_constants/separation = 10
 alignment = 0
-
-[node name="label_credits" type="Label" parent="Container/vbox_credits"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 220.0
-margin/bottom = 36.0
-custom_fonts/font = ExtResource( 1 )
-text = "Credits"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="hbox" type="HBoxContainer" parent="Container/vbox_credits"]
 
@@ -263,155 +330,399 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 46.0
-margin/right = 220.0
-margin/bottom = 78.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 36.0
 alignment = 0
 
-[node name="field_music" type="LineEdit" parent="Container/vbox_credits/hbox"]
+[node name="label_credits" type="Label" parent="Container/vbox_credits/hbox"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+size_flags/stretch_ratio = 10.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 263.0
+margin/bottom = 36.0
+custom_fonts/font = ExtResource( 1 )
+text = "Credits"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="field_(" type="LineEdit" parent="Container/vbox_credits/hbox"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 108.0
-margin/bottom = 32.0
+size_flags/vertical = 0
+size_flags/stretch_ratio = 2.0
+margin/left = 267.0
+margin/top = 2.0
+margin/right = 319.0
+margin/bottom = 34.0
 custom_fonts/font = ExtResource( 2 )
-placeholder/text = "Music"
+placeholder/text = "Left"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="field_video" type="LineEdit" parent="Container/vbox_credits/hbox"]
+[node name="field_)" type="LineEdit" parent="Container/vbox_credits/hbox"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 112.0
-margin/top = 0.0
-margin/right = 220.0
-margin/bottom = 32.0
+size_flags/vertical = 0
+size_flags/stretch_ratio = 2.0
+margin/left = 323.0
+margin/top = 2.0
+margin/right = 375.0
+margin/bottom = 34.0
 custom_fonts/font = ExtResource( 2 )
-placeholder/text = "Video"
+placeholder/text = "Right"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="field_singer" type="LineEdit" parent="Container/vbox_credits"]
+[node name="field_separator" type="LineEdit" parent="Container/vbox_credits/hbox"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 88.0
-margin/right = 220.0
-margin/bottom = 120.0
+size_flags/horizontal = 3
+size_flags/vertical = 0
+size_flags/stretch_ratio = 3.0
+margin/left = 379.0
+margin/top = 2.0
+margin/right = 460.0
+margin/bottom = 34.0
 custom_fonts/font = ExtResource( 2 )
-placeholder/text = "Singer"
+placeholder/text = "Separator"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="field_ust" type="LineEdit" parent="Container/vbox_credits"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 130.0
-margin/right = 220.0
-margin/bottom = 162.0
-custom_fonts/font = ExtResource( 2 )
-placeholder/text = "UST"
-placeholder/alpha = 0.6
-focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
-
-[node name="vbox_links" type="VBoxContainer" parent="Container"]
+[node name="hbox_credit0" type="HBoxContainer" parent="Container/vbox_credits"]
 
 editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 20.0
-margin/top = 280.0
-margin/right = 240.0
-margin/bottom = 442.0
-custom_constants/separation = 10
+margin/left = 0.0
+margin/top = 46.0
+margin/right = 460.0
+margin/bottom = 78.0
 alignment = 0
 
-[node name="label_links" type="Label" parent="Container/vbox_links"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 220.0
-margin/bottom = 36.0
-custom_fonts/font = ExtResource( 1 )
-text = "Links"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="field_original" type="LineEdit" parent="Container/vbox_links"]
+[node name="field_prepend" type="LineEdit" parent="Container/vbox_credits/hbox_credit0"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
-size_flags/horizontal = 2
+size_flags/horizontal = 3
 size_flags/vertical = 2
+size_flags/stretch_ratio = 3.0
 margin/left = 0.0
-margin/top = 46.0
-margin/right = 220.0
-margin/bottom = 78.0
+margin/top = 0.0
+margin/right = 105.0
+margin/bottom = 32.0
 custom_fonts/font = ExtResource( 2 )
-placeholder/text = "Original"
+text = "Original"
+placeholder/text = "Prepend"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="field_singer" type="LineEdit" parent="Container/vbox_links"]
+[node name="field_link" type="LineEdit" parent="Container/vbox_credits/hbox_credit0"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 10.0
+margin/left = 109.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Link"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="hbox_credit1" type="HBoxContainer" parent="Container/vbox_credits"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 88.0
-margin/right = 220.0
+margin/right = 460.0
 margin/bottom = 120.0
+alignment = 0
+
+[node name="field_prepend" type="LineEdit" parent="Container/vbox_credits/hbox_credit1"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 3.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 84.0
+margin/bottom = 32.0
 custom_fonts/font = ExtResource( 2 )
-placeholder/text = "Singer"
+text = "Music"
+placeholder/text = "Prepend"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="field_ust" type="LineEdit" parent="Container/vbox_links"]
+[node name="field_credit" type="LineEdit" parent="Container/vbox_credits/hbox_credit1"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 4.0
+margin/left = 88.0
+margin/top = 0.0
+margin/right = 201.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Credit"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_link" type="LineEdit" parent="Container/vbox_credits/hbox_credit1"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 9.0
+margin/left = 205.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Link"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="hbox_credit2" type="HBoxContainer" parent="Container/vbox_credits"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 130.0
-margin/right = 220.0
+margin/right = 460.0
 margin/bottom = 162.0
+alignment = 0
+
+[node name="field_prepend" type="LineEdit" parent="Container/vbox_credits/hbox_credit2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 3.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 84.0
+margin/bottom = 32.0
 custom_fonts/font = ExtResource( 2 )
-placeholder/text = "UST"
+text = "Video"
+placeholder/text = "Prepend"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_credit" type="LineEdit" parent="Container/vbox_credits/hbox_credit2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 4.0
+margin/left = 88.0
+margin/top = 0.0
+margin/right = 201.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Credit"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_link" type="LineEdit" parent="Container/vbox_credits/hbox_credit2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 9.0
+margin/left = 205.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Link"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="hbox_credit3" type="HBoxContainer" parent="Container/vbox_credits"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 172.0
+margin/right = 460.0
+margin/bottom = 204.0
+alignment = 0
+
+[node name="field_prepend" type="LineEdit" parent="Container/vbox_credits/hbox_credit3"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 3.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 84.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+text = "Singer"
+placeholder/text = "Prepend"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_credit" type="LineEdit" parent="Container/vbox_credits/hbox_credit3"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 4.0
+margin/left = 88.0
+margin/top = 0.0
+margin/right = 201.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Credit"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_link" type="LineEdit" parent="Container/vbox_credits/hbox_credit3"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 9.0
+margin/left = 205.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Link"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="hbox_credit4" type="HBoxContainer" parent="Container/vbox_credits"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 214.0
+margin/right = 460.0
+margin/bottom = 246.0
+alignment = 0
+
+[node name="field_prepend" type="LineEdit" parent="Container/vbox_credits/hbox_credit4"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 3.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 84.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+text = "UST"
+placeholder/text = "Prepend"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_credit" type="LineEdit" parent="Container/vbox_credits/hbox_credit4"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 4.0
+margin/left = 88.0
+margin/top = 0.0
+margin/right = 201.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Credit"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="field_link" type="LineEdit" parent="Container/vbox_credits/hbox_credit4"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+size_flags/stretch_ratio = 9.0
+margin/left = 205.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+placeholder/text = "Link"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
@@ -419,33 +730,84 @@ caret/caret_blink_speed = 0.65
 
 [node name="vbox_final" type="VBoxContainer" parent="Container"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 3
-margin/left = 500.0
-margin/top = 10.0
-margin/right = 960.0
-margin/bottom = 440.0
+margin/left = 260.0
+margin/top = 280.0
+margin/right = 720.0
+margin/bottom = 580.0
 custom_constants/separation = 7
 alignment = 0
 
-[node name="label_result" type="Label" parent="Container/vbox_final"]
+[node name="hbox" type="HBoxContainer" parent="Container/vbox_final"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 460.0
+margin/bottom = 36.0
+custom_constants/separation = 10
+alignment = 0
+
+[node name="label_result" type="Label" parent="Container/vbox_final/hbox"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 0
+size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 460.0
+margin/right = 70.0
 margin/bottom = 36.0
 custom_fonts/font = ExtResource( 1 )
 text = "Result"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="toggle_autorefresh" type="CheckButton" parent="Container/vbox_final/hbox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 80.0
+margin/top = 0.0
+margin/right = 241.0
+margin/bottom = 36.0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = true
+is_pressed = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Auto Refresh"
+flat = false
+align = 0
+script/script = ExtResource( 4 )
+
+[node name="button_refresh" type="Button" parent="Container/vbox_final/hbox"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 251.0
+margin/top = 4.0
+margin/right = 314.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Refresh"
+flat = false
 
 [node name="label_finaltitle_pre" type="Label" parent="Container/vbox_final"]
 
@@ -479,7 +841,7 @@ editable = false
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
-script/script = ExtResource( 4 )
+script/script = ExtResource( 5 )
 
 [node name="label_finaldesc_pre" type="Label" parent="Container/vbox_final"]
 
@@ -506,7 +868,7 @@ size_flags/vertical = 3
 margin/left = 0.0
 margin/top = 140.0
 margin/right = 460.0
-margin/bottom = 430.0
+margin/bottom = 300.0
 custom_fonts/font = ExtResource( 3 )
 syntax_highlighting = false
 show_line_numbers = false
@@ -514,9 +876,18 @@ highlight_all_occurrences = false
 caret/block_caret = false
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
+script/script = ExtResource( 6 )
 
 [connection signal="toggled" from="Container/vbox_title/hbox/checkbox_PV" to="Container/vbox_final/field_finaltitle" method="_on_checkbox_PV_toggled"]
 
 [connection signal="toggled" from="Container/vbox_title/hbox/checkbox_UTAU" to="Container/vbox_final/field_finaltitle" method="_on_checkbox_UTAU_toggled"]
+
+[connection signal="toggled" from="Container/vbox_final/hbox/toggle_autorefresh" to="Container/vbox_final/field_finaltitle" method="_on_toggle_autorefresh_toggled"]
+
+[connection signal="toggled" from="Container/vbox_final/hbox/toggle_autorefresh" to="Container/vbox_final/edit_finaldesc" method="_on_toggle_autorefresh_toggled"]
+
+[connection signal="pressed" from="Container/vbox_final/hbox/button_refresh" to="Container/vbox_final/field_finaltitle" method="_on_button_refresh_pressed"]
+
+[connection signal="pressed" from="Container/vbox_final/hbox/button_refresh" to="Container/vbox_final/edit_finaldesc" method="_on_button_refresh_pressed"]
 
 
