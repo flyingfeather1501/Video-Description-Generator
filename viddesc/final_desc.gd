@@ -1,19 +1,18 @@
 
 extends TextEdit
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
-
 var SETSUMEI = ""
-var CDT0 = ""
-var CDT1 = ""
-var CDT2 = ""
-var CDT3 = ""
-var CDT4 = ""
+var cdt_0 = ""
+var cdt_origpvused = ""
+var cdt_1 = ""
+var cdt_2 = ""
+var cdt_3 = ""
+var cdt_4 = ""
 var sep = ""
 var brkt_lft = ""
 var brkt_rght = ""
+
+onready var field_origpvused = get_node("/root/Control/Container/vbox_credits/hbox_credit0/field_origpvused")
 
 onready var edit_desc = get_node("/root/Control/Container/vbox_desc/edit_desc")
 onready var field_separator = get_node("/root/Control/Container/vbox_credits/hbox/field_separator")
@@ -65,48 +64,50 @@ func refresh():
 	
 	# credits
 	if credit0_prepend.get_text() == "":
-		CDT0 = ""
+		cdt_0 = ""
+	elif field_origpvused.get_text() == "":
+		cdt_0 = credit0_prepend.get_text()+sep+credit0_link.get_text()+"\n\n"
 	else:
-		CDT0 = credit0_prepend.get_text()+sep+credit0_link.get_text()+"\n\n"
+		cdt_0 = credit0_prepend.get_text()+sep+credit0_link.get_text()+"\n"+field_origpvused.get_text()+"\n\n"
 	
 	if credit1_prepend.get_text() == "":
-		CDT1 = ""
+		cdt_1 = ""
 	elif credit1_link.get_text() == "":
-		CDT1 = credit1_prepend.get_text()+sep+credit1_credit.get_text()+"\n"
+		cdt_1 = credit1_prepend.get_text()+sep+credit1_credit.get_text()+"\n"
 	else:
-		CDT1 = credit1_prepend.get_text()+sep+credit1_credit.get_text()+" "+brkt_lft+credit1_link.get_text()+brkt_rght+"\n"
+		cdt_1 = credit1_prepend.get_text()+sep+credit1_credit.get_text()+" "+brkt_lft+credit1_link.get_text()+brkt_rght+"\n"
 	
 	if credit2_prepend.get_text() == "":
-		CDT2 = ""
+		cdt_2 = ""
 	elif credit2_link.get_text() == "":
-		CDT2 = credit2_prepend.get_text()+sep+credit2_credit.get_text()+"\n"
+		cdt_2 = credit2_prepend.get_text()+sep+credit2_credit.get_text()+"\n"
 	else:
-		CDT2 = credit2_prepend.get_text()+sep+credit2_credit.get_text()+" "+brkt_lft+credit2_link.get_text()+brkt_rght+"\n"
+		cdt_2 = credit2_prepend.get_text()+sep+credit2_credit.get_text()+" "+brkt_lft+credit2_link.get_text()+brkt_rght+"\n"
 	
 	if credit3_prepend.get_text() == "":
-		CDT3 = ""
+		cdt_3 = ""
 	elif credit3_link.get_text() == "":
-		CDT3 = credit3_prepend.get_text()+sep+credit3_credit.get_text()+"\n"
+		cdt_3 = credit3_prepend.get_text()+sep+credit3_credit.get_text()+"\n"
 	else:
-		CDT3 = credit3_prepend.get_text()+sep+credit3_credit.get_text()+" "+brkt_lft+credit3_link.get_text()+brkt_rght+"\n"
+		cdt_3 = credit3_prepend.get_text()+sep+credit3_credit.get_text()+" "+brkt_lft+credit3_link.get_text()+brkt_rght+"\n"
 	
 	if credit4_prepend.get_text() == "":
-		CDT4 = ""
+		cdt_4 = ""
 	elif credit4_link.get_text() == "":
-		CDT4 = credit4_prepend.get_text()+sep+credit4_credit.get_text()+"\n"
+		cdt_4 = credit4_prepend.get_text()+sep+credit4_credit.get_text()+"\n"
 	else:
-		CDT4 = credit4_prepend.get_text()+sep+credit4_credit.get_text()+" "+brkt_lft+credit4_link.get_text()+brkt_rght+"\n"
+		cdt_4 = credit4_prepend.get_text()+sep+credit4_credit.get_text()+" "+brkt_lft+credit4_link.get_text()+brkt_rght+"\n"
 	
 	self.set_text(\
 	SETSUMEI+"\n"\
 	+"\n"\
 	+"\n"\
-	+CDT0\
-	+CDT1\
-	+CDT2\
-	+CDT3\
+	+cdt_0\
+	+cdt_1\
+	+cdt_2\
+	+cdt_3\
 	\
-	+CDT4)
+	+cdt_4)
 
 func _fixed_process(delta):
 	refresh()
